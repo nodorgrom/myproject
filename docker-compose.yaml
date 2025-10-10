@@ -1,0 +1,15 @@
+version: "3.9"
+
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    volumes:
+      - ~/.pg/pg_data/evgej:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - "54322:5432"
+
+      
