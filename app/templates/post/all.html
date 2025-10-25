@@ -28,7 +28,7 @@
 				<td>{{ post.student }}</td>
 				<td>
 					<a href="{{ url_for('my_post.edit', id=post.id) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pen"></i></a>
-					<a href="" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
+					<a href="{{ url_for('my_post.delete', id=post.id) }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
 				</td>
 			</tr>
 			{% endfor %}

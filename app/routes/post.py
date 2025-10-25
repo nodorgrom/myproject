@@ -50,3 +50,18 @@ def edit(id):
 	else:
 		return render_template('post/edit.html', post=post)
 
+
+
+@my_post.route('/post/<int:id>/delete', methods=['POST', 'GET'])
+def delete(id):
+	post = MyPost.query.get(id)
+	print(type(post))
+	print(post)
+
+	try:
+		db.session.delete(post)
+		db.session.commit()
+		return redirect('/')
+	except Exception as e:
+		print(str(e))
+		return str(e)
