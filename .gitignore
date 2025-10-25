@@ -1,4 +1,10 @@
-env/
 .flaskenv
 .env
-app/__pycache__
+env/
+migrations/*
+app/models/**/__pycache__/
+*.pyo
+*.pyc
+*.pyc~
+*.pyo~
+*.pyd
