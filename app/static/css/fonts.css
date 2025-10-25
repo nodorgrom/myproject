@@ -12,3 +12,10 @@
 	font-weight: 600;
 	src: url('../fonts/montserrat/Montserrat-Bold.ttf');
 }
+
+
+/* FontAwesome */
+@font-face {
+	font-family: 'FontAwesome';
+	src: url('../fonts/fontawesome/fa-regular-400.woff2');
+}

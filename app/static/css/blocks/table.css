@@ -10,7 +10,7 @@
 }
 
 .custom-table tbody th, .custom-table tbody td {
-	color: #ccc;
+	color: #fff;
 	padding-bottom: 20px;
 	padding-top: 20px;
 }
@@ -39,10 +39,6 @@
 	-webkit-transition: .3s all ease;
 	-o-transition: .3s all ease;
 	transition: .3s all ease;
-}
-
-.custom-table tbody tr th a, .custom-table tbody tr td a {
-	color: #b3b3b3;
 }
 
 .custom-table tbody tr th:first-child, .custom-table tbody tr td:first-child {

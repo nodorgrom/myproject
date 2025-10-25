@@ -3,7 +3,11 @@
 
 {% block title %}Темы{% endblock %}
 
-{% block style %}<link rel="stylesheet" href="{{ url_for('static', filename='css/blocks/table.css') }}">{% endblock %}
+{% block style %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/blocks/table.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/libs/all.min.css') }}">
+{% endblock %}
+
 
 {% block content %}
 <div class="table-responsive custom-table-responsive">
@@ -13,6 +17,7 @@
 				<th scope="col">Преподаватель</th>
 				<th scope="col">Тема</th>
 				<th scope="col">Студент</th>
+				<th scope="col">Действия</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -21,6 +26,10 @@
 				<td>{{ post.teacher }}</td>
 				<td>{{ post.subject }}</td>
 				<td>{{ post.student }}</td>
+				<td>
+					<a href="{{ url_for('my_post.edit', id=post.id) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pen"></i></a>
+					<a href="" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
+				</td>
 			</tr>
 			{% endfor %}
 		</tbody>
