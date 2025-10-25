@@ -1,5 +1,5 @@
 from ..extensions import db
 
-class MyPost(db.Model):
+class MyComment(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	subject = db.Column(db.String(250))
+	message = db.Column(db.Text())
