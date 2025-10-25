@@ -5,6 +5,7 @@ from .config import Config
 from .routes.user import my_users
 from .routes.post import my_post
 from .routes.comment import my_comment
+from .routes.main import main
 
 
 def create_app(config_class=Config):
@@ -18,6 +19,7 @@ def create_app(config_class=Config):
 	app.register_blueprint(my_users)
 	app.register_blueprint(my_post)
 	app.register_blueprint(my_comment)
+	app.register_blueprint(main)
 
 	db.init_app(app)
 
