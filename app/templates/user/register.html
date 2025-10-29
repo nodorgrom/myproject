@@ -1,6 +1,5 @@
 {% extends 'main/base.html' %}
 
-
 {% block title %}Регистрация{% endblock %}
 
 {% block style %}
@@ -10,9 +9,13 @@
 
 {% block content%}
 	<form method="post" enctype="multipart/form-data" class="form-control d-flex flex-column gap-2 register_form">
+		{% set input_classes = "form-control" %}
+		{% if form.login.errors %}
+		    {% set input_classes = input_classes + " is-invalid" %}
+		{% endif %}
 		{{ form.csrf_token }}
 		{{ form.user_name(class="form-control", placeholder="ФИО") }}	
-		{{ form.login(class="form-control", placeholder="Логин") }}	
+		{{ form.login(class=input_classes, placeholder="Логин") }}	
 		{{ form.password(class="form-control", placeholder="Пароль") }}	
 		{{ form.confirm_password(class="form-control", placeholder="Подтверждение пароля") }}	
 		{{ form.avatar(class="form-control") }}	

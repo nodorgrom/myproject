@@ -25,7 +25,7 @@ def register_user():
 
 			return redirect('/')
 		else:
-			flash(f"Ошибка регистрации: {form.user_name.data} {form.login.data} {form.avatar.data}", "danger")
+			flash(f"Ошибка регистрации", "danger")
 			print('Ошибка регистрации')
 
 	return render_template('user/register.html', form=form)
