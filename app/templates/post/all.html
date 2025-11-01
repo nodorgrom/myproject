@@ -17,7 +17,9 @@
 				<th scope="col">Преподаватель</th>
 				<th scope="col">Тема</th>
 				<th scope="col">Студент</th>
+				{% if current_user.is_authenticated %}
 				<th scope="col">Действия</th>
+				{% endif %}
 			</tr>
 		</thead>
 		<tbody>
@@ -26,10 +28,12 @@
 				<td>{{ post.teacher }}</td>
 				<td>{{ post.subject }}</td>
 				<td>{{ post.student }}</td>
+				{% if current_user.is_authenticated %}
 				<td>
 					<a href="{{ url_for('my_post.edit', id=post.id) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pen"></i></a>
 					<a href="{{ url_for('my_post.delete', id=post.id) }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
 				</td>
+				{% endif %}
 			</tr>
 			{% endfor %}
 		</tbody>
