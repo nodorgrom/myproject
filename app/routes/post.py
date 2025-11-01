@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect
+from flask_login import login_required
 from ..extensions import db
 from ..models.post import MyPost
 
@@ -12,6 +13,7 @@ def all():
 
 
 @my_post.route('/post/create', methods=['POST', 'GET'])
+@login_required
 def create():
 	if request.method == 'POST':
 		teacher = request.form.get('teacher')
@@ -32,6 +34,7 @@ def create():
 
 
 @my_post.route('/post/<int:id>/edit', methods=['POST', 'GET'])
+@login_required
 def edit(id):
 	post = MyPost.query.get(id)
 
@@ -53,6 +56,7 @@ def edit(id):
 
 
 @my_post.route('/post/<int:id>/delete', methods=['POST', 'GET'])
+@login_required
 def delete(id):
 	post = MyPost.query.get(id)
 	print(type(post))

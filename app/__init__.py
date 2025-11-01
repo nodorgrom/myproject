@@ -24,8 +24,9 @@ def create_app(config_class=Config):
 	login_manager.init_app(app)
 
 	# LOGIN MANAGER
-	login_manager.login_view = 'user.login'
+	login_manager.login_view = 'my_users.login'
 	login_manager.login_message = 'Только авторизованным пользователям!'
+	login_manager.login_message_category = 'danger'
 	# END LOGIN MANAGER
 
 	with app.app_context():
