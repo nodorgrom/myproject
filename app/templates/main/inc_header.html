@@ -10,8 +10,13 @@
 					<li><a href="{{ url_for('my_post.create') }}" class="nav-link px-2 link-body-emphasis">Добавить тему</a></li>
 				</ul>
 				<div class="text-end">
-					<a href="{{ url_for('my_users.login') }}" class="btn me-2 btn-primary">Войти</a>	
-					<a href="{{ url_for('my_users.register_user') }}" class="btn me-2 btn-primary">Регистрация</a>	
+					{% if current_user.is_authenticated %}
+						<span >{{ current_user.user_name }}</span>
+						<a href="{{ url_for('my_users.logout') }}" class="btn me-2 btn-primary">Выйти</a>	
+					{% else %}
+						<a href="{{ url_for('my_users.login') }}" class="btn me-2 btn-primary">Войти</a>	
+						<a href="{{ url_for('my_users.register_user') }}" class="btn me-2 btn-primary">Регистрация</a>	
+					{% endif %}
 				</div>
 			</div>
 		</div>
