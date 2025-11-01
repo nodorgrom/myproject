@@ -1,0 +1,21 @@
+<!-- templates/user/login_form_content.html -->
+
+<form method="post" action="{{ url_for('my_users.login') }}" class="form-control d-flex flex-column gap-2 register_form">
+    {% set input_classes = "form-control" %}
+    {% if form.login.errors %}
+        {% set input_classes = input_classes + " is-invalid" %}
+    {% endif %}
+    {{ form.csrf_token }}
+    <div class="form-floating mb-3">
+        {{ form.login(class="form-control", id="floatingLogin", placeholder="Логин") }}
+        <label for="floatingLogin">Логин</label>
+    </div>
+    <div class="form-floating mb-3">
+        {{ form.password(class="form-control", id="floatingPassword", placeholder="Пароль") }}
+        <label for="floatingPassword">Пароль</label>
+    </div>
+    <div class="d-flex flex-row justify-content-center gap-2">
+        {{ form.remember(class="form-check") }}{{ form.remember.label }}
+    </div>
+    {{ form.submit(class="btn btn-success") }}	
+</form>

@@ -14,10 +14,26 @@
 		    {% set input_classes = input_classes + " is-invalid" %}
 		{% endif %}
 		{{ form.csrf_token }}
-		{{ form.user_name(class="form-control", placeholder="ФИО") }}	
-		{{ form.login(class=input_classes, placeholder="Логин") }}	
-		{{ form.password(class="form-control", placeholder="Пароль") }}	
-		{{ form.confirm_password(class="form-control", placeholder="Подтверждение пароля") }}	
+
+	    <div class="form-floating">
+	        {{ form.user_name(class="form-control", id="floatingUsername", placeholder="ФИО") }}
+	        <label for="floatingUsername">ФИО</label>
+	    </div>
+
+	    <div class="form-floating">
+	        {{ form.login(class="form-control", id="floatingLogin", placeholder="Логин") }}
+	        <label for="floatingLogin">Логин</label>
+	    </div>
+
+	    <div class="form-floating">
+	        {{ form.password(class="form-control", id="floatingPassword", placeholder="Пароль") }}
+	        <label for="floatingPassword">Пароль</label>
+	    </div>
+
+	    <div class="form-floating">
+	        {{ form.confirm_password(class="form-control", id="floatingConfirmPassword", placeholder="Подтверждение пароля") }}
+	        <label for="floatingConfirmPassword">Подтверждение пароля</label>
+	    </div>
 		{{ form.avatar(class="form-control") }}	
 		{{ form.submit(class="btn btn-success") }}	
 	</form>

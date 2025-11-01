@@ -34,23 +34,32 @@ def register_user():
 
 @my_users.route('/user/login', methods=['POST', 'GET'])
 def login():
-	form = LoginForm()
+    form = LoginForm()
 
-	if form.validate_on_submit():
-		user = MyUsers.query.filter_by(login=form.login.data).first()
+    if form.validate_on_submit():
+        # ... (логика входа остается прежней) ...
+        user = MyUsers.query.filter_by(login=form.login.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember.data)
+            next_page = request.args.get('next')
+            flash(f"Добро пожаловать, {form.login.data}!", "success")
+            # После успешного входа делаем полное перенаправление
+            return redirect(next_page) if next_page else redirect(url_for('my_post.all'))
+        else:
+            flash(f"Ошибка авторизации. Проверьте email и пароль!", "danger")
+            # При ошибке делаем полное перенаправление обратно на главную
+            return redirect(url_for('my_post.all')) 
 
-		if user and bcrypt.check_password_hash(user.password, form.password.data):
-			login_user(user, remember=form.remember.data)
-			next_page = request.args.get('next')
+    # Если запрос GET и это не AJAX-запрос, то рендерим обычную страницу входа (на всякий случай)
+    if not request.headers.get("X-Requested-With") == "Fetch":
+         return render_template('user/login.html', form=form)
 
-			flash(f"Добро пожаловать, {form.login.data}!", "success")
-
-			return redirect(next_page) if next_page else redirect(url_for('my_post.all'))
-		else:
-			flash(f"Ошибка авторизации. Проверьте email и пароль!", "danger")
-
-	return render_template('user/login.html', form=form)
-
+# НОВЫЙ МАРШРУТ ДЛЯ МОДАЛЬНОГО ОКНА
+@my_users.route('/user/login/modal', methods=['GET'])
+def login_modal():
+    form = LoginForm()
+    # Рендерим ТОЛЬКО содержимое формы без наследования base.html
+    return render_template('user/login_form_content.html', form=form)
 
 
 @my_users.route('/user/logout', methods=['POST', 'GET'])

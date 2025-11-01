@@ -13,11 +13,16 @@
 				</ul>
 				<div class="text-end">
 					{% if current_user.is_authenticated %}
-						<span >{{ current_user.user_name }}</span>
-						<a href="{{ url_for('my_users.logout') }}" class="btn me-2 btn-primary">Выйти</a>	
+                        <!-- ... (код для залогиненного пользователя, который мы чинили ранее) ... -->
+						<div class="d-flex flex-column gap-2">
+							<span class="badge bg-primary w-100 mt-0 mb-0">{{ current_user.login }}</span>
+							<a href="{{ url_for('my_users.logout') }}" class="badge bg-danger w-100 mt-0 mb-0">Выйти</a>
+						</div>
 					{% else %}
-						<a href="{{ url_for('my_users.login') }}" class="btn me-2 btn-primary">Войти</a>	
-						<a href="{{ url_for('my_users.register_user') }}" class="btn me-2 btn-primary">Регистрация</a>	
+                        <!-- Кнопка "Войти" теперь вызывает модальное окно -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal" onclick="loadLoginForm()">
+                          Войти
+                        </button>
 					{% endif %}
 				</div>
 			</div>
