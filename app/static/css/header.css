@@ -9,3 +9,12 @@
 	top: 0;
 	background-color: white;
 }
+
+.custom-nav-link {
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+.custom-nav-link:hover,
+.custom-nav-link:focus {
+    color: #007bff !important; /* Цвет вашей основной темы (primary) при наведении */
+    background-color: #f8f9fa; /* Слегка заметный фон при наведении */
+}

@@ -6,20 +6,21 @@
 					<img class="header_logo__img" src="{{ url_for('static', filename='images/elka_logo.png') }}" alt="Welcome">
 				</a>
 				<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-					<li><a href="{{ url_for('my_post.all') }}" class="nav-link px-2 link-secondary">Главная</a></li>
+					<li><a href="{{ url_for('my_post.all') }}" class="nav-link px-3 py-1 rounded text-muted custom-nav-link">Каталог</a></li>
+					<li><a href="{{ url_for('my_post.all') }}" class="nav-link px-3 py-1 rounded text-muted custom-nav-link">Доставка и оплата</a></li>
+					<li><a href="{{ url_for('my_post.all') }}" class="nav-link px-3 py-1 rounded text-muted custom-nav-link">Гарантии</a></li>
+					<li><a href="{{ url_for('my_post.all') }}" class="nav-link px-3 py-1 rounded text-muted custom-nav-link">Контакты</a></li>
 					{% if current_user.is_authenticated %}
 						<li><a href="{{ url_for('my_post.create') }}" class="nav-link px-2 link-body-emphasis">Добавить тему</a></li>
 					{% endif %}
 				</ul>
 				<div class="text-end">
 					{% if current_user.is_authenticated %}
-                        <!-- ... (код для залогиненного пользователя, который мы чинили ранее) ... -->
 						<div class="d-flex flex-column gap-2">
 							<span class="badge bg-primary w-100 mt-0 mb-0">{{ current_user.login }}</span>
 							<a href="{{ url_for('my_users.logout') }}" class="badge bg-danger w-100 mt-0 mb-0">Выйти</a>
 						</div>
 					{% else %}
-                        <!-- Кнопка "Войти" теперь вызывает модальное окно -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal" onclick="loadLoginForm()">
                           Войти
                         </button>
