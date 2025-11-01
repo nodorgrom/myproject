@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block style %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/blocks/register.css') }}">
+{% endblock %}
+
+
+{% block content%}
+	<form method="post" class="form-control d-flex flex-column gap-2 register_form">
+		{% set input_classes = "form-control" %}
+		{% if form.login.errors %}
+		    {% set input_classes = input_classes + " is-invalid" %}
+		{% endif %}
+		{{ form.csrf_token }}
+		{{ form.login(class=input_classes, placeholder="Логин") }}	
+		{{ form.password(class="form-control", placeholder="Пароль") }}	
+		<div class="d-flex flex-row justify-content-center gap-2">
+			{{ form.remember(class="form-check") }}{{ form.remember.label }}
+		</div>
+		{{ form.submit(class="btn btn-success") }}	
+	</form>
+{% endblock %}
