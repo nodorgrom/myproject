@@ -41,7 +41,7 @@
 					<a href="{{ url_for('my_post.edit', id=post.id) }}" class="btn btn-sm btn-secondary"><i class="fas fa-pen"></i></a>
 					<a href="{{ url_for('my_post.delete', id=post.id) }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
 				</td>
-				{% else %}
+				{% elif current_user.is_authenticated %}
 					<td></td>
 				{% endif %}
 			</tr>
