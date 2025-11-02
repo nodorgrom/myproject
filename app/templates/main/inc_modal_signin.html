@@ -1,0 +1,14 @@
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Войти или создать профиль</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="loginModalBody"></div>
+      <div class="modal-footer">
+        <a href="{{ url_for('my_users.register_user') }}" class="btn btn-secondary">Регистрация</a>
+      </div>
+    </div>
+  </div>
+</div>

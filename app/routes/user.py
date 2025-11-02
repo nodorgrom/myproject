@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, flash, url_for, request
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 from ..forms import RegistrationForm, LoginForm
 from ..extensions import db, bcrypt
 from ..models.user import MyUsers
@@ -24,7 +24,7 @@ def register_user():
 
 			flash(f"Добро пожаловать, {form.user_name.data} ({form.login.data})!", "success")
 
-			return redirect(url_for('user.login'))
+			return redirect(url_for('my_users.login'))
 		else:
 			flash(f"Ошибка регистрации", "danger")
 			print('Ошибка регистрации')
@@ -54,7 +54,6 @@ def login():
     if not request.headers.get("X-Requested-With") == "Fetch":
          return render_template('user/login.html', form=form)
 
-# НОВЫЙ МАРШРУТ ДЛЯ МОДАЛЬНОГО ОКНА
 @my_users.route('/user/login/modal', methods=['GET'])
 def login_modal():
     form = LoginForm()
@@ -66,3 +65,21 @@ def login_modal():
 def logout():
 	logout_user()
 	return redirect(url_for('my_post.all'))
+
+
+
+@my_users.route('/user/profile', methods=['POST', 'GET'])
+@login_required
+def profile():
+	return render_template('user/profile.html', user=current_user)
+
+
+
+
+
+
+
+
+
+
+
