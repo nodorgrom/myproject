@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, flash, url_for
 from flask_login import login_required, current_user
 from ..extensions import db
 from ..models.post import MyPost
@@ -42,23 +42,42 @@ def create():
 @my_post.route('/post/<int:id>/edit', methods=['POST', 'GET'])
 @login_required
 def edit(id):
-	post = MyPost.query.get(id)
+    post = MyPost.query.get_or_404(id) # Используем get_or_404 для безопасности
 
+    form = StudentForm()
+    
+    # 1. Заполняем choices кортежами (ID, Имя)
+    users = MyUsers.query.filter_by(role='user').all()
+    form.student.choices = [(str(s.id), s.user_name) for s in users] # ID должен быть строкой для SelectField
 
-	if request.method == 'POST':
-		post.teacher = request.form.get('teacher')
-		post.subject = request.form.get('subject')
-		post.student = request.form.get('student')
+    # 2. Если это GET-запрос (первое открытие страницы), устанавливаем текущее значение по умолчанию
+    if request.method == 'GET':
+        # Устанавливаем ID текущего студента как значение по умолчанию
+        form.student.data = str(post.student)
 
-		try:
-			db.session.commit()
-			return redirect('/')
-		except Exception as e:
-			print(str(e))
+    # 3. Обработка POST-запроса
+    if request.method == 'POST':
+        # Проверяем валидацию формы перед обработкой
+        if form.validate_on_submit():
+            post.subject = request.form.get('subject') # Это поле вы не показывали, но оно здесь
 
-	else:
-		return render_template('post/edit.html', post=post)
+            # Получаем ID из формы (он придет как строка, но SQL Alchemy его преобразует)
+            selected_student_id = request.form.get('student') 
+            post.student = selected_student_id
 
+            try:
+                db.session.commit()
+                flash("Запись успешно обновлена!", "success")
+                return redirect(url_for('my_post.all'))
+            except Exception as e:
+                db.session.rollback() # Откатываем изменения в случае ошибки
+                print(str(e))
+                flash("Произошла ошибка при сохранении в базу.", "danger")
+        else:
+             flash("Ошибка валидации формы.", "danger")
+             
+    # Если GET или POST с ошибками валидации, рендерим шаблон
+    return render_template('post/edit.html', post=post, form=form)
 
 
 @my_post.route('/post/<int:id>/delete', methods=['POST', 'GET'])
