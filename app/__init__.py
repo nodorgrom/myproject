@@ -1,5 +1,5 @@
 from flask import Flask 
-from .extensions import db, migrate, login_manager
+from .extensions import db, migrate, login_manager, assets
 from .config import Config
 
 from .routes.user import my_users
@@ -22,12 +22,17 @@ def create_app(config_class=Config):
 	db.init_app(app)
 	migrate.init_app(app, db)
 	login_manager.init_app(app)
+	assets.init_app(app)
 
-	# LOGIN MANAGER
+	# BEGIN LOGIN MANAGER
 	login_manager.login_view = 'my_users.login'
 	login_manager.login_message = 'Только авторизованным пользователям!'
 	login_manager.login_message_category = 'danger'
 	# END LOGIN MANAGER
+
+
+	# BEGIN ASSETS
+	# END ASSETS
 
 	with app.app_context():
 		db.create_all()

@@ -16,3 +16,10 @@ def save_picture(pic):
 	img.save(pic_path)
 
 	return pic_filename
+
+def recursive_flatten_iterator(d):
+	for k, v in d.items():
+		if isinstance(v, list):
+			yield v
+		if isinstance(v, dict):
+			yield from recursive_flatten_iterator(v)
